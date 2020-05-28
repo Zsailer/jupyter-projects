@@ -2,6 +2,8 @@
 an incompatible DB from scratch...
 """
 import os
+import pathlib
+
 from jupyterhub.orm import (
     User,
     Group,
@@ -52,12 +54,18 @@ class Project(Base):
         return db.query(cls).filter(cls.name == name).first()
 
 
-def init_db():
-    fname = 'jupyter_projects.sqlite'
-    if os.path.exists(fname):
-        os.remove(fname)
+def init_db(fname: str, path: str = None):
+    if path:
+        db_path = pathlib.Path(path) / fname
+    else:
+        db_path = pathlib.Path(fname)
 
-    session_factory = new_session_factory(url=DB_URL)
+    if db_path.exists():
+        db_path.unlink()
+
+    db_url = f"sqlite:///{db_path}"
+
+    session_factory = new_session_factory(url=db_url)
     db = session_factory()
 
     users = [

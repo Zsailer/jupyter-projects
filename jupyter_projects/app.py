@@ -11,17 +11,15 @@ from .db import init_db
 
 HERE = pathlib.Path(__file__).resolve()
 HERE_DIR = HERE.parent
-# TEMPLATE_DIR = HERE_DIR / "templates"
-# templates = Jinja2Templates(directory=TEMPLATE_DIR)
 
-def main():
 
+def create_app(db_path=None):
     app = FastAPI(
         title="Jupyter Projects",
         description="Multiple people under a single Jupyter workspace, writing notebooks together"
     )
 
-    db = init_db()
+    db = init_db(fname='jupyter_projects.sqlite', path=db_path)
 
     ROUTERS = [
         'api'
@@ -34,6 +32,11 @@ def main():
         mod.router.db = db
         app.include_router(mod.router)
 
+    return app
+
+
+def main():
+    app = create_app()
     uvicorn.run(app)
 
 

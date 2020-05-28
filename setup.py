@@ -17,6 +17,14 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
     ],
+    install_requires = [
+        'pydantic',
+        'fastapi',
+        'jupyterhub'
+    ],
+    extras_require = {
+        'test': ['pytest'],
+    },
     entry_points={
         'console_scripts': [
             'jupyter-projects = jupyter_projects.app:main'
