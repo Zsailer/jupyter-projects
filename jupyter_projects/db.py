@@ -7,6 +7,7 @@ import pathlib
 from jupyterhub.orm import (
     User,
     Group,
+    APIToken,
     Base,
     new_session_factory
 )

@@ -20,7 +20,8 @@ setup(
     install_requires = [
         'pydantic',
         'fastapi',
-        'jupyterhub'
+        'jupyterhub',
+        'uvicorn'
     ],
     extras_require = {
         'test': ['pytest'],
