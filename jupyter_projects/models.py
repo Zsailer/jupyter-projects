@@ -103,6 +103,10 @@ class GroupModel(ORMModel):
     users: List[UserModel]
 
 
+class GroupListModel(ORMModel):
+    groups: List[GroupModel]
+
+
 class ProjectModel(ORMModel):
     __orm__ = Project
     id: int = None
